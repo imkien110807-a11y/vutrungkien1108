@@ -1,0 +1,38 @@
+html { scroll-behavior: auto; } /* cuộn mượt do JavaScript xử lý */
+body { background-color: #FFF7F9; color: #4A4A4A; }
+
+/* Ẩn hiện nội dung bài học */
+.project-content { display: none; }
+.project-content.active { display: block; animation: softFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes softFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Hiệu ứng mờ -> rõ theo tốc độ cuộn (độ mờ/vị trí được JS cập nhật theo vị trí cuộn) */
+.reveal { opacity: 0; will-change: opacity, transform; }
+
+/* Khoảng cách đúng 3 dòng chữ (3 x line-height 1.625rem) */
+.gap-3-lines { height: calc(1.625rem * 3); margin: 0 !important; }
+
+/* Menu thả xuống "Dự Án" */
+.nav-dd { position: relative; }
+.nav-dd-panel {
+    position: absolute; left: 50%; top: 100%; width: 22rem; padding-top: 0.9rem;
+    opacity: 0; visibility: hidden; transform: translate(-50%, 8px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s;
+}
+.nav-dd:hover .nav-dd-panel,
+.nav-dd:focus-within .nav-dd-panel { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.nav-dd.force-close .nav-dd-panel { opacity: 0; visibility: hidden; transform: translate(-50%, 8px); }
+.nav-dd-list { max-height: min(70vh, 26rem); overflow-y: auto; }
+.nav-dd-list::-webkit-scrollbar { width: 8px; }
+.nav-dd-list::-webkit-scrollbar-thumb { background: #F8BBD0; border-radius: 8px; }
+
+/* Styling riêng cho bảng biểu */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1.5rem; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+th, td { border: 1px solid #F48FB1; padding: 12px 15px; text-align: left; }
+th { background-color: #F48FB1; color: #fff; font-weight: 600; }
+td { color: #555; }
+
+@media (prefers-reduced-motion: reduce) {
+    .project-content.active { animation: none; }
+    .nav-dd-panel { transition: none; }
+}
